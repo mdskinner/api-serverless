@@ -10,19 +10,9 @@ export const handler: APIGatewayProxyHandler = async (event, _context): Promise<
         //
         let id = event.pathParameters?.id
 
-        // let q = event.queryStringParameters?.q || ''
-        // let d1 = event.queryStringParameters?.d1 || '2020-09-15 00:00:00'
-        // let d2 = event.queryStringParameters?.d2 || moment().format('YYYY-MM-DD HH:mm:ss');
-        let q = event.queryStringParameters?.q
-        let d1 = event.queryStringParameters?.d1
-        let d2 = event.queryStringParameters?.d2
-
-        console.log('--stage0--', id, event);
-        console.log('--stage1--', q, d1, d2);
-
-        q = ''
-        d1 = '2020-09-15 00:00:00'
-        d2 = moment().format('YYYY-MM-DD HH:mm:ss');
+        let q = event.queryStringParameters?.q || ''
+        let d1 = event.queryStringParameters?.d1 || '2020-01-01 00:00:00'
+        let d2 = event.queryStringParameters?.d2 || moment().format('YYYY-MM-DD HH:mm:ss');
 
         console.log('--stage2--', q, d1, d2);
 
