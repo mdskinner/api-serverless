@@ -1,0 +1,27 @@
+payload: "2.0"
+authorizers:
+  customCognitoAuthorizer:
+    identitySource: $request.header.Authorization
+    issuerUrl: https://cognito-idp.${self:custom.region}.amazonaws.com/${self:custom.cognitoPoolId}
+    audience: # App client id
+      - 4dk3q34fcnadeqgthqe8arcact # Auditr
+      - 4lf1bmh7cli7au5l72t5oofu3u # Transactr
+      - 38agfvlg0ep61q47rsoh83je5o # Registr
+cors: true
+# cors:
+# allowedOrigins:
+#   - https://domain.com
+#   - https://example.co.nz
+# allowedHeaders:
+#   - Authorization
+#   - Content-Type
+# allowedMethods:
+#   - GET
+#   - POST
+#   - PUT
+#   - PATCH
+#   - DELETE
+# allowCredentials: true
+# exposedResponseHeaders:
+#   - Special-Response-Header
+# maxAge: 6000 # in seconds

@@ -1,0 +1,129 @@
+org: mdskinner
+app: codetest
+service: my-typescript-rest-api-app
+
+custom:
+  region: ap-southeast-2
+  cognitoPoolId: ap-southeast-2_sqN74b3Jd
+
+  mysqlEndpoint: database-2instanceidentifier.cda1sbpmsspw.ap-southeast-2.rds.amazonaws.com
+  mysqlDatabaseName: db2name
+  mysqlUsername: admin
+  mysqlPassword: Yohmear5
+
+  # # rdsProxyEndpoint: rds-proxy.proxy-cda1sbpmsspw.ap-southeast-2.rds.amazonaws.com
+  # # rdsProxyEndpoint: proxy2identifier.proxy-cda1sbpmsspw.ap-southeast-2.rds.amazonaws.com
+  # # rdsProxyEndpoint: new-proxy-identity.proxy-cda1sbpmsspw.ap-southeast-2.rds.amazonaws.com
+  # rdsProxyEndpoint: iamproxy.proxy-cda1sbpmsspw.ap-southeast-2.rds.amazonaws.com
+  # # rdsResourceId: db-AQ6LMHQTNAZPCICDVPI5D2G3UE
+  # # rdsDatabaseARN: arn:aws:rds:ap-southeast-2:779380690993:db:auditingsystem
+  # rdsDatabaseName: iamdb
+  # rdsMasterUsername: admin
+
+  serverless-offline:
+    httpPort: 4999
+    # httpsProtocol: "dev-certs"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  # memorySize: 512 # optional, in MB, default is 1024
+  # timeout: 30 # default is 6, API Gateway limit is 30
+
+  stage: ${opt:stage, 'dev'}
+  region: ${self:custom.region}
+
+  environment:
+    REGION: ${self:custom.region}
+    COGNITO_POOL_ID: ${self:custom.cognitoPoolId}
+    MYSQL_ENDPOINT: ${self:custom.mysqlEndpoint}
+    MYSQL_DATABASE_NAME: ${self:custom.mysqlDatabaseName}
+    MYSQL_USERNAME: ${self:custom.mysqlUsername}
+    MYSQL_PASSWORD: ${self:custom.mysqlPassword}
+    # # MYSQL_RESOURCE_ID: ${self:custom.mysqlResourceId}
+    # # MYSQL_DATABASE_ARN: ${self:custom.mysqlDatabaseARN}
+    # RDS_PROXY_ENDPOINT: ${self:custom.rdsProxyEndpoint}
+    # # RDS_RESOURCE_ID: ${self:custom.rdsResourceId}
+    # # RDS_DATABASE_ARN: ${self:custom.rdsDatabaseARN}
+    # RDS_DATABASE_NAME: ${self:custom.rdsDatabaseName}
+    # RDS_MASTER_USERNAME: ${self:custom.rdsMasterUsername}
+
+  logs:
+    httpApi: true
+
+  httpApi: ${file(resources/httpApi.yml)}
+
+functions:
+  _mysqlTest: ${file(resources/testServices/mysql.yml)}
+  # _rdsProxyTest: ${file(resources/testServices/rdsProxy.yml)}
+
+  # catchAllAny:
+  #   handler: functions/catchAllAny.handler
+  #   events:
+  #     - httpApi: "*"
+
+  getProducts:
+    handler: functions/products/get.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /products
+          authorizer: customCognitoAuthorizer
+
+  getOrders:
+    handler: functions/orders/get.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /orders
+          authorizer: customCognitoAuthorizer
+      - httpApi:
+          method: GET
+          path: /orders/{id}
+          authorizer: customCognitoAuthorizer
+
+  postOrders:
+    handler: functions/orders/post.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /orders
+          authorizer: customCognitoAuthorizer
+
+  login:
+    handler: functions/users/login.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /login
+          authorizer: customCognitoAuthorizer
+
+  getUsers:
+    handler: functions/users/get.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /users
+          authorizer: customCognitoAuthorizer
+      - httpApi:
+          method: GET
+          path: /users/{id}
+          authorizer: customCognitoAuthorizer
+
+  # revokeUserAccess:
+  #   handler: functions/users/revoke.handler
+  #   events:
+  #     - httpApi:
+  #         method: DELETE
+  #         path: /users/{id}
+  #         authorizer: customCognitoAuthorizer
+
+plugins:
+  - serverless-plugin-typescript
+  - "@serverless/safeguards-plugin"
+  - serverless-offline
+
+resources:
+  - ${file(resources/Resources/cognito-user-pool.yml)}
+  # - ${file(resources/Resources/cognito-identity-pool.yml)}

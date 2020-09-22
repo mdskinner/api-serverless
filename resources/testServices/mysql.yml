@@ -1,0 +1,6 @@
+handler: functions/_verifiers/mysql.handler
+events:
+  - httpApi:
+      method: GET
+      path: /verify/mysql
+      authorizer: customCognitoAuthorizer

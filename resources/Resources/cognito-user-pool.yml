@@ -1,0 +1,46 @@
+Resources:
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: ${self:provider.stage}-user-pool
+      UsernameAttributes:
+        - email
+      AutoVerifiedAttributes:
+        - email
+
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: ${self:provider.stage}-user-pool-client
+      UserPoolId:
+        Ref: CognitoUserPool
+      ExplicitAuthFlows:
+        - ADMIN_NO_SRP_AUTH # Secure Remote Password
+      GenerateSecret: false
+
+  # UserPool:
+  #   Type: AWS::Cognito::UserPool
+  #   Properties:
+  #     AutoVerifiedAttributes:
+  #       - email
+  #     UsernameAttributes:
+  #       - email
+  #     UserPoolName: cognito-apigateway
+  # UserPoolClient:
+  #   Type: AWS::Cognito::UserPoolClient
+  #   Properties:
+  #     ClientName: cognito-apigateway
+  #     ExplicitAuthFlows:
+  #       - ALLOW_USER_PASSWORD_AUTH
+  #       - ALLOW_REFRESH_TOKEN_AUTH
+  #     UserPoolId: !Ref UserPool
+
+# Print out the Id of the User Pool that is created
+Outputs:
+  UserPoolId:
+    Value:
+      Ref: CognitoUserPool
+
+  UserPoolClientId:
+    Value:
+      Ref: CognitoUserPoolClient

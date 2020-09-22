@@ -1,0 +1,23 @@
+
+// https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_sqN74b3Jd/.well-known/jwks.json
+
+{
+    "keys": [
+        {
+            "alg": "RS256",
+            "e": "AQAB",
+            "kid": "rg2q+gkl0HYr0m5bY45u8UOtRwjqa31+Frl6UHe0fus=",
+            "kty": "RSA",
+            "n": "pCABvgJEnSqXCqOPCXtIo6eN_8wsWrPIfMIZ_0UNXXNEHioFVv3a1HuE0H1rgzrFjhqRJjWhAvMOnce_9VBwn-SX0fAMh0fHyxMW0HbMLM0hXaTL-DacOVH7Y8Kftuz49HDM5XSxo_aJLPiWFQcDo7C5Gvqifike4jlDlHBYlH82A-343T9Q9PMsOV4Cs2vHcpo3sydaf3LQhiLrG5LuYPSfCILAo95UtLIYIIJvJTA8QE5dIhlYCheK7Rp7rUn9ybHHkMhYv9-vWtn4TkcwYEPo1Hwe-5e_YSkPzreNsRQ3m7YPU0MswXgdJiQE3WpbQxcQVfLzTbzXEpdJ2OObMQ",
+            "use": "sig"
+        },
+        {
+            "alg": "RS256",
+            "e": "AQAB",
+            "kid": "FuoMBiu7SLmIQ8jG0lYKk2z97cdQsSPzRuR+uO0K1Lo=",
+            "kty": "RSA",
+            "n": "thtOaig3hHxsJXNqdz5ij6hu5pzBFv_u-yIQrlchwanoAn96Kwud5Dp7p9O40zlY6WPgNARMOKdO2m5CrTQ15x4fU-Q4u8-r-k7NFAgIQA8syTe_KJ-My4N2jRkWUDYlmyCxE5-6NW9RxpiwkRotkmH8wIxpHOASkp3L42fDCZBIrYo4Xwj-wNcsfztfn4s1xKay0vk7301MMn1aB5h5MrigOGrqfIxWTVcFxmmcMkdTuiV7E9MzNKDa7NHLxAUbZvuZWJK6enAPKQ3XERzX39m96Uhe-8N07t0X7EDlokcHiM39p3TPDWiYvENjlVlbWMVIXuvbtOcjKlaOMXLA_w",
+            "use": "sig"
+        }
+    ]
+}

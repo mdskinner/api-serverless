@@ -1,0 +1,6 @@
+handler: functions/_verifiers/rdsProxy.handler
+events:
+  - httpApi:
+      method: GET
+      path: /verify/rdsProxy
+      authorizer: customCognitoAuthorizer
